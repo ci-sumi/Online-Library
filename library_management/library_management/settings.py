@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
     # 'allauth.socialaccount',  # Optional: For social authentication
     # 'allauth.socialaccount.providers.google',  # Example: Google provider
 ]
@@ -57,9 +60,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 SITE_ID = 1
 ROOT_URLCONF = 'library_management.urls'
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 TEMPLATES = [
     {

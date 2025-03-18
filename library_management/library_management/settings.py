@@ -69,7 +69,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',#required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -133,23 +133,23 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Default backend
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
-# Allauth settings
-# Login settings
-# ACCOUNT_LOGIN_METHODS = ['email']  # Allow login only via email
-
-# # Signup settings
-# ACCOUNT_SIGNUP_FIELDS = ['email', 'password1', 'password2']  # Require email and password during signup
-
-# # Other settings
-# #ACCOUNT_EMAIL_VERIFICATION = # 'mandatory'  # Require email verification
-# ACCOUNT_UNIQUE_EMAIL = True  # Ensure email is unique
-# ACCOUNT_LOGOUT_ON_GET = True  # Logout directly on GET request
-# LOGIN_REDIRECT_URL = 'home'  # Redirect after login
-# LOGOUT_REDIRECT_URL = 'home'  # Redirect after logout
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-ACCOUNT_AUTHENTICATION_METHOD = "email"
+# Django Allauth Settings
+ACCOUNT_LOGIN_METHODS = ['email', 'username']  # Replace ACCOUNT_AUTHENTICATION_METHOD
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'email2*', 'username*', 'password1*', 'password2*']
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL ='/'

@@ -23,7 +23,120 @@
 </head>
 <body class="bg-black font-sans leading-normal tracking-normal">
     <header>
+        <nav class="bg-gray-800 p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <!-- Logo -->
+                <a href="/" class="text-white text-2xl font-bold">Ballymun Library📚</a>
 
+                <!-- Burger Menu (Mobile) -->
+                <div class="block lg:hidden">
+                    <button id="burger-menu" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Nav Links (Desktop) -->
+                <div class="hidden lg:flex space-x-6 items-center">
+                    <a href="{% url 'index' %}" class="text-white hover:text-gray-400">Home</a>
+                    
+                    <!-- Books Dropdown -->
+                    <div class="relative" id="books-dropdown">
+                        <button id="books-dropdown-button" class="text-white hover:text-gray-400 flex items-center">
+                            Books
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="books-dropdown-menu" class="absolute hidden bg-gray-700 min-w-[200px] rounded-md shadow-lg z-10">
+                            <div class="py-1">
+                                <h3 class="px-4 py-2 text-white font-semibold border-b border-gray-600">Categories</h3>
+                                <a href="/books/fiction" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Fiction</a>
+                                <a href="/books/non-fiction" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Non-Fiction</a>
+                                <a href="/books/sci-fi" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Sci-Fi & Fantasy</a>
+                                <a href="/books/mystery" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Mystery & Thriller</a>
+                                <a href="/books/romance" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Romance</a>
+                                <a href="/books/biography" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Biography</a>
+                                <a href="/books/children" class="block px-4 py-2 text-gray-300 hover:bg-gray-600">Children's Books</a>
+                                <a href="/books/all" class="block px-4 py-2 text-white font-medium hover:bg-gray-600 border-t border-gray-600">View All Books</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="/about" class="text-white hover:text-gray-400">About</a>
+                    <a href="/contact" class="text-white hover:text-gray-400">Contact</a>
+                    
+                    <!-- Shopping Cart (Desktop) -->
+                    <a href="/cart" class="text-white hover:text-red-400 p-2 relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="red" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                            0  <!-- Dynamic count would go here -->
+                        </span>
+                    </a>
+                    
+                    <!-- Account Icon (Desktop) -->
+                    <a href="/account" class="text-white hover:text-red-400 p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="red" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile Menu (Hidden by Default) -->
+            <div id="mobile-menu" class="hidden lg:hidden mt-4">
+                <a href="/" class="block text-white py-2 hover:bg-gray-700">Home</a>
+                
+                <!-- Mobile Books Categories -->
+                <div class="px-4 py-2">
+                    <button id="mobile-books-toggle" class="text-white flex items-center justify-between w-full">
+                        Books
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="mobile-books-menu" class="hidden pl-4 mt-1">
+                        <a href="/books/fiction" class="block py-2 text-gray-300 hover:bg-gray-700">Fiction</a>
+                        <a href="/books/non-fiction" class="block py-2 text-gray-300 hover:bg-gray-700">Non-Fiction</a>
+                        <a href="/books/sci-fi" class="block py-2 text-gray-300 hover:bg-gray-700">Sci-Fi & Fantasy</a>
+                        <a href="/books/mystery" class="block py-2 text-gray-300 hover:bg-gray-700">Mystery & Thriller</a>
+                        <a href="/books/romance" class="block py-2 text-gray-300 hover:bg-gray-700">Romance</a>
+                        <a href="/books/biography" class="block py-2 text-gray-300 hover:bg-gray-700">Biography</a>
+                        <a href="/books/children" class="block py-2 text-gray-300 hover:bg-gray-700">Children's Books</a>
+                        <a href="/books/all" class="block py-2 text-white font-medium hover:bg-gray-700">View All Books</a>
+                    </div>
+                </div>
+                
+                <a href="/about" class="block text-white py-2 hover:bg-gray-700">About</a>
+                <a href="/contact" class="block text-white py-2 hover:bg-gray-700">Contact</a>
+                
+                <!-- Shopping Cart (Mobile) -->
+                <a href="/cart" class="block text-white py-2 hover:bg-red-700 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    Shopping Cart
+                    <span class="ml-auto bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                        0  <!-- Dynamic count would go here -->
+                    </span>
+                </a>
+                
+                <!-- Account (Mobile) -->
+                <a href="/account" class="block text-white py-2 hover:bg-red-700 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                    My Account
+                </a>
+            </div>
+        </nav>
     </header>
     {% if messages %}
     {% endif %}
@@ -33,6 +146,45 @@
     {% endblock %}
     {% block post_js %}
     {% endblock %}
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Layali📚. All rights reserved.</p>
+            <div class="mt-2">
+                <a href="/privacy" class="text-gray-400 hover:text-white">Privacy Policy</a>
+                <span class="mx-2">|</span>
+                <a href="/terms" class="text-gray-400 hover:text-white">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Mobile menu toggle
+        document.getElementById('burger-menu').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Mobile books menu toggle
+        document.getElementById('mobile-books-toggle').addEventListener('click', function() {
+            const booksMenu = document.getElementById('mobile-books-menu');
+            booksMenu.classList.toggle('hidden');
+        });
+
+        // Desktop books dropdown
+        const booksDropdownButton = document.getElementById('books-dropdown-button');
+        const booksDropdownMenu = document.getElementById('books-dropdown-menu');
+
+        booksDropdownButton.addEventListener('click', function() {
+            booksDropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = document.getElementById('books-dropdown').contains(event.target);
+            if (!isClickInside) {
+                booksDropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>

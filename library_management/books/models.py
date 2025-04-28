@@ -7,7 +7,9 @@ class Book(models.Model):
     author = models.CharField(max_length=200)
     subject = models.CharField(max_length=200)
     published_date = models.DateField()
+    cover_image = models.URLField(default='https://example.com/placeholder-image.jpg')
+   
     
     def __str__(self):
         return self.title
-    
+     

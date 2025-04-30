@@ -1,6 +1,11 @@
 import requests
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from .models import Book
+from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def index(request):
@@ -35,9 +40,34 @@ def get_bookapi(query='Malayalam classic novel', max_book= 40):
                 'categories': ', '.join(volume_info.get('categories', ['No Category'])),
                 'image_url':volume_info.get('imageLinks',{}).get('thumbnail','No image')
             })
+            
     return books
 
-# to save the 
+
+
+# to save the data to the database
+def save_to_database(request):
+    books = get_bookapi()
+    print(books)
+    if not books:
+        return HttpResponse ("No books returned from API")
+    for books_data in books:
+                
+        Book.objects.update_or_create(
+        book_id = books_data['book_id'],
+        defaults={
+            'title':books_data['title'],
+            'author':books_data['authors'],
+            'subject':books_data['categories'],
+            'published_date':get_published_year(books_data.get('published_date')),
+            'cover_image':books_data['image_url'],
+            
+        }
+     )
+    return HttpResponse (f"successfully saved {len(books)} books to the database")
+
+    
+
  
 def all_book_view(request):
     books = get_bookapi()

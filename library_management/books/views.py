@@ -43,7 +43,16 @@ def get_bookapi(query='Malayalam classic novel', max_book= 40):
             
     return books
 
-
+def get_published_year(pub_date):
+    if not pub_date:
+        return None
+    try:
+        pub_str = str(pub_date)[:4]
+        if pub_str.isdigit() and 1900 <=int(pub_str) >=2099:
+            return int(pub_str)
+    except(ValueError,TypeError):
+        logger.warning("Failed to parse the publication date{pub_str}{e}")
+        return None
 
 # to save the data to the database
 def save_to_database(request):

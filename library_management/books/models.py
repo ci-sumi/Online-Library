@@ -6,7 +6,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     subject = models.CharField(max_length=200)
-    published_date = models.DateField()
+    published_date = models.IntegerField(null=True,blank=True)
     cover_image = models.URLField(default='https://example.com/placeholder-image.jpg')
    
     
